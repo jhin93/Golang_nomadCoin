@@ -2,11 +2,15 @@ package main
 
 import "fmt"
 
-func plus(a, b int, name string) (int, string) {
-	return a + b, name
+func plus(a ...int) int {
+	total := 0
+	for _, item := range a {
+		total += item
+	}
+	return total
 }
 
 func main() {
-	result, name := plus(2, 2, "nico")
-	fmt.Println(result, name)
+	result := plus(2, 3, 4, 5, 6, 7, 8, 9, 10)
+	fmt.Println(result)
 }

@@ -47,3 +47,7 @@ for loop 예제
 		fmt.Println(foods[i])
 	}
 ```
+
+Slice : array의 무한대 버전. ex []string, []boolean
+
+append(slice, elem1, elem2)

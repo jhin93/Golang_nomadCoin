@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	x := 412412
-	xAsBinary := fmt.Sprintf("%b\n", x) // binary로 format 된 x의 string
-	fmt.Println(x, xAsBinary)
+	foods := [3]string{"2", "e", "3"}
+	for i := 0; i < len(foods); i++ {
+		fmt.Println(foods[i])
+	}
 }

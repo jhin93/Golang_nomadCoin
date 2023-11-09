@@ -49,5 +49,5 @@ for loop 예제
 ```
 
 Slice : array의 무한대 버전. ex []string, []boolean
-
-append(slice, elem1, elem2)
+append 메소드 : .append(slice, elem1, elem2)
+ex) slice = append(slice, "elem1")

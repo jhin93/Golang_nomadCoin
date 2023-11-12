@@ -1,17 +1,14 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-type person struct {
-	name string
-	age  int
-}
-
-func (p person) sayHello() { // type 'person'에만 유효한 함수(p person)
-	fmt.Printf("Hello! my name is %s and my korean age is %d", p.name, p.age+1)
-}
+	"github.com/jhin93/Golang_nomadCoin/person"
+)
 
 func main() {
-	nico := person{name: "nico", age: 12}
-	nico.sayHello()
+	nico := person.Person{}           // nico 변수에 'Person' type 할당
+	nico.SetDetails("nico", 12)       // 결과 : SeeDetails nico : {nico 12}
+	fmt.Println("Main's nico'", nico) // 결과 : Main's nico' { 0}
+	// 결과 원인 : 변수 nico는 SetDetails 함수의 p 변수를 복사한 값이라 처음 복사됐을 때 빈 값 그대로({ 0}) 출력됨.
 }

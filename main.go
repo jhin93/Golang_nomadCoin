@@ -5,7 +5,9 @@ import "fmt"
 func main() {
 	a := 2
 	b := &a
-	fmt.Println(b, *b)
+	a = 50
+	a = 12
+	fmt.Println(*b)
 }
 
-// 0xc000012088 2
+// 12

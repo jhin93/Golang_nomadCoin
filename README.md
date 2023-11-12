@@ -74,3 +74,55 @@ func main() {
 	nico.sayHello()
 }
 ```
+
+
+Method Receiver
+```go
+func (p *Person) SetDetails(name string, age int) { // 
+	p.name = name
+	p.age = age
+	fmt.Println("SeeDetails nico :", p)
+}
+
+```
+Go 언어에서 SetDetails 함수 정의에서 나타나는 (p *Person) 부분을 "메서드 수신자(method receiver)"라고 부릅니다. 메서드 수신자는 해당 메서드가 연결될 구조체의 인스턴스를 정의합니다. 이 경우, SetDetails 메서드는 Person 구조체의 포인터 인스턴스(*Person)에 연결되어 있습니다.
+
+Method Receiver는 메서드가 호출될 때 해당 구조체의 인스턴스에 대한 참조를 제공합니다. 이를 통해 해당 인스턴스의 필드를 읽거나 수정할 수 있습니다. 예를 들어, SetDetails 메서드 내에서 p.name과 p.age는 Person 인스턴스의 name과 age 필드를 참조하고 있습니다. 포인터(*Person)를 사용하는 것은 이 메서드가 호출될 때, 원본 Person 인스턴스를 직접 수정할 수 있도록 해줍니다.
+
+이러한 특성 때문에, 구조체의 필드를 수정하는 메서드를 정의할 때는 일반적으로 구조체의 포인터(*Person)를 사용하는 것이 좋습니다. 이렇게 하면 메서드가 원본 구조체 인스턴스를 직접 수정할 수 있으므로, 변경사항이 해당 인스턴스에 반영됩니다.
+
+*만약 메서드 리시버를 포인터로 설정하지 않을 경우
+```go
+// person/person.go
+package person
+
+import "fmt"
+
+type Person struct { // 대문자로 설정되어야 export 가능
+	name string
+	age  int
+}
+
+func (p *Person) SetDetails(name string, age int) { // Person을 *Person으로 바꾸지 않으면, Go 언어가 main.go의 nico를 복사한 복사본(메소드 리시버의 p)을 수정한다. 하지만 원본(main.go의 nico)는 수정되지 않는다.
+	p.name = name
+	p.age = age
+	fmt.Println("SeeDetails nico :", p)
+}
+
+// main.go
+package main
+
+import (
+	"fmt"
+
+	"github.com/jhin93/Golang_nomadCoin/person"
+)
+
+func main() {
+	nico := person.Person{}             // nico 변수에 'Person' type 할당
+	nico.SetDetails("nico", 12)         // 결과 : SeeDetails nico : {nico 12}
+	fmt.Println("Main's nico : ", nico) // 결과 : Main's nico' { 0}
+}
+
+
+```

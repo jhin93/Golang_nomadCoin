@@ -18,7 +18,7 @@ func main() {
 
 ```
 
-data format 예제
+**data format 예제**
 ```go
 import "fmt"
 
@@ -31,16 +31,16 @@ func main() {
 }
 ```
 
-Sprintf 
+**Sprintf** 
 ```go
 func main() {
 	x := 412412
 	xAsBinary := fmt.Sprintf("%b\n", x) // binary로 format 된 x의 string
-	fmt.Println(x, xAsBinary)
+	fmt.Println(x, xAsBinary) // 412412 1100100101011111100
 }
 ```
 
-for loop 예제  
+**for loop 예제**  
 ```go
 	foods := [3]string{"2", "e", "3"}
 	for i := 0; i < len(foods); i++ {
@@ -53,7 +53,7 @@ append 메소드 : .append(slice, elem1, elem2)
 ex) slice = append(slice, "elem1")
 
 
-struct, method 사용예제
+**struct, method 사용예제**
 ```go
 package main
 
@@ -76,7 +76,7 @@ func main() {
 ```
 
 
-Method Receiver
+**Method Receiver**
 ```go
 func (p *Person) SetDetails(name string, age int) { // 메서드 리시버 : (p *Person)
 	p.name = name
@@ -127,7 +127,11 @@ func main() {
 
 ```
 
-구조체의 포인터 변수는 출력하면 '&구조체'의 형태로 출력됨
+
+
+
+
+**구조체의 포인터 변수는 출력하면 '&구조체'의 형태로 출력됨**
 ```go
 // main.go
 package main
@@ -167,7 +171,7 @@ Go 언어에서 포인터 변수를 출력할 때 & 기호가 결과에 포함�
 
 
 
-method receiver의 struct pointer instance가 &가 아니고 *인 이유.
+**method receiver의 struct pointer instance가 &가 아니고 *인 이유**
 
 직관적으로 생각하면 원본을 수정하기 위해 *가 아닌 메모리 주소 &가 메소드 리시버에 붙어야 한다고 보인다.  
 그러나 실제로는 *를 해주어야 한다. 그래야 원본의 주소값 p(&{구조체} ex &{nico 12})에 직접적인 변형을 줄 수 있다.

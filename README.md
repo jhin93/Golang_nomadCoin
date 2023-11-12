@@ -18,7 +18,10 @@ func main() {
 
 ```
 
-
+</br>
+</br>
+</br>
+</br>
   
 **data format 예제**
 ```go
@@ -32,7 +35,10 @@ func main() {
 	fmt.Printf("%U\n", x) // hexadecimal
 }
 ```
-
+</br>
+</br>
+</br>
+</br>
 **Sprintf** 
 ```go
 func main() {
@@ -41,7 +47,10 @@ func main() {
 	fmt.Println(x, xAsBinary) // 412412 1100100101011111100
 }
 ```
-  
+</br>
+</br>
+</br>
+</br>
 **for loop 예제**  
 ```go
 	foods := [3]string{"2", "e", "3"}
@@ -54,7 +63,10 @@ Slice : array의 무한대 버전. ex []string, []boolean
 append 메소드 : .append(slice, elem1, elem2)
 ex) slice = append(slice, "elem1")
   
-  
+</br>
+</br>
+</br>
+</br>
 **struct, method 사용예제**
 ```go
 package main
@@ -77,7 +89,10 @@ func main() {
 }
 ```
   
-  
+</br>
+</br>
+</br>
+</br>
 **Method Receiver**
 ```go
 func (p *Person) SetDetails(name string, age int) { // 메서드 리시버 : (p *Person)
@@ -131,7 +146,10 @@ func main() {
   
   
 
-
+</br>
+</br>
+</br>
+</br>
 
 **구조체의 포인터 변수는 출력하면 '&구조체'의 형태로 출력됨**
 ```go

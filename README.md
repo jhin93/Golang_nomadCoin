@@ -17,7 +17,7 @@ func main() {
 }
 
 ```
-
+  
 **data format 예제**
 ```go
 import "fmt"
@@ -39,7 +39,7 @@ func main() {
 	fmt.Println(x, xAsBinary) // 412412 1100100101011111100
 }
 ```
-
+  
 **for loop 예제**  
 ```go
 	foods := [3]string{"2", "e", "3"}
@@ -47,12 +47,12 @@ func main() {
 		fmt.Println(foods[i])
 	}
 ```
-
+  
 Slice : array의 무한대 버전. ex []string, []boolean
 append 메소드 : .append(slice, elem1, elem2)
 ex) slice = append(slice, "elem1")
-
-
+  
+  
 **struct, method 사용예제**
 ```go
 package main
@@ -74,8 +74,8 @@ func main() {
 	nico.sayHello()
 }
 ```
-
-
+  
+  
 **Method Receiver**
 ```go
 func (p *Person) SetDetails(name string, age int) { // 메서드 리시버 : (p *Person)
@@ -126,8 +126,8 @@ func main() {
 
 
 ```
-
-
+  
+  
 
 
 
@@ -166,9 +166,8 @@ func (p *Person) SetDetails(name string, age int) { // Person을 *Person으로 �
 ```
 결과 이유 : SeeDetails nico : &{nico 12} 라고 나온 이유는 p가 대변하는 nico가 struct라서 그런 것. 만약 타 자료형(ex int) 였으면 0xc000012088 형태의 자료형이 출력
 Go 언어에서 포인터 변수를 출력할 때 & 기호가 결과에 포함되는 것은 주로 구조체를 가리키는 포인터에 해당합니다. 이는 구조체 인스턴스의 주소와 그 내용을 함께 표시하기 위한 Go의 표준 출력 방식입니다.
-
-
-
+  
+  
 
 
 **method receiver의 struct pointer instance가 &가 아니고 *인 이유**

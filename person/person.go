@@ -1,7 +1,5 @@
 package person
 
-import "fmt"
-
 type Person struct { // 대문자로 설정되어야 export 가능
 	name string
 	age  int
@@ -10,5 +8,8 @@ type Person struct { // 대문자로 설정되어야 export 가능
 func (p *Person) SetDetails(name string, age int) {
 	p.name = name
 	p.age = age
-	fmt.Println("SeeDetails nico :", p)
+}
+
+func (p Person) Name() string {
+	return p.name
 }

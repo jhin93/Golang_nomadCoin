@@ -4,7 +4,7 @@ import "fmt"
 
 func main() {
 	a := 2
-	b := a // a의 value를 복사한 것
+	b := a
 	a = 12
-	fmt.Println(b)
+	fmt.Println(&b, &a)
 }

@@ -1,7 +1,7 @@
 # Golang_nomadCoin
 
 
-range 사용예제
+**range 사용예제**
 ```go
 func plus(a ...int) int {
 	total := 0

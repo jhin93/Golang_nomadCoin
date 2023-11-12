@@ -2,7 +2,7 @@
 
 
 range 사용예제
-```
+```go
 func plus(a ...int) int {
 	total := 0
 	for _, item := range a {
@@ -19,7 +19,7 @@ func main() {
 ```
 
 data format 예제
-```
+```go
 import "fmt"
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 ```
 
 Sprintf 
-```
+```go
 func main() {
 	x := 412412
 	xAsBinary := fmt.Sprintf("%b\n", x) // binary로 format 된 x의 string
@@ -41,7 +41,7 @@ func main() {
 ```
 
 for loop 예제  
-```
+```go
 	foods := [3]string{"2", "e", "3"}
 	for i := 0; i < len(foods); i++ {
 		fmt.Println(foods[i])

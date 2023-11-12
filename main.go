@@ -11,14 +11,3 @@ func main() {
 	nico.SetDetails("nico", 12)         // 결과 : SeeDetails nico : {nico 12}
 	fmt.Println("Main's nico : ", nico) // 결과 : Main's nico' { 0}
 }
-
-// type testStruct struct {
-// 	field int
-// }
-
-// func main() {
-// 	a := testStruct{field: 2}
-// 	b := &a
-// 	fmt.Println(b)
-// 	// 출력: &{2}
-// }

@@ -39,6 +39,7 @@ func main() {
 </br>
 </br>
 </br>
+
 **Sprintf** 
 ```go
 func main() {
@@ -51,6 +52,7 @@ func main() {
 </br>
 </br>
 </br>
+
 **for loop 예제**  
 ```go
 	foods := [3]string{"2", "e", "3"}
@@ -67,6 +69,7 @@ ex) slice = append(slice, "elem1")
 </br>
 </br>
 </br>
+
 **struct, method 사용예제**
 ```go
 package main
@@ -93,6 +96,7 @@ func main() {
 </br>
 </br>
 </br>
+
 **Method Receiver**
 ```go
 func (p *Person) SetDetails(name string, age int) { // 메서드 리시버 : (p *Person)
@@ -140,7 +144,6 @@ func main() {
 	nico.SetDetails("nico", 12)         // 결과 : SeeDetails nico : {nico 12}
 	fmt.Println("Main's nico : ", nico) // 결과 : Main's nico' { 0}
 }
-
 
 ```
   

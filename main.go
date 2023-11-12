@@ -7,9 +7,8 @@ type person struct {
 	age  int
 }
 
-func (p person) sayHello() { // 'person' struct의 메소드
-	fmt.Printf("Hello! my name is %s and i'm %d", p.name, p.age) // .Println으로 출력하면 '...name is %s and i'm %d' 라고 출력됨.
-	// %s, %d 는 각각 string, decimal(10진수)를 의미함. 순서대로 %s에는 p.name, %d에는 p.age가 할당됨
+func (p person) sayHello() { // type 'person'에만 유효한 함수(p person)
+	fmt.Printf("Hello! my name is %s and my korean age is %d", p.name, p.age+1)
 }
 
 func main() {

@@ -78,7 +78,7 @@ func main() {
 
 Method Receiver
 ```go
-func (p *Person) SetDetails(name string, age int) { // 
+func (p *Person) SetDetails(name string, age int) { // 메서드 리시버 : (p *Person)
 	p.name = name
 	p.age = age
 	fmt.Println("SeeDetails nico :", p)

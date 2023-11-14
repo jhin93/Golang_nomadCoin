@@ -207,3 +207,12 @@ func main() {
 	b = 3 // cannot use 3 (untyped int constant) as *int value in
 }
 ```
+</br>
+</br>
+</br>
+</br>
+One-way function
+단방향 함수. 오직 한 방향으로만 작동하는 함수이다.  
+결정론적이기에 일정한 입력값에 대해 일정한 결과값을 갖는다.  
+ex) "test" = h_fn(x) => "awetawedgzderw"  
+ex) "awetawedgzderw" = h_fn(x) => "test" ---> 이렇게 결과를 입력해도 입력값이 나오지 않는다. 단방향이기 때문.  

@@ -211,7 +211,7 @@ func main() {
 </br>
 </br>
 </br>
-One-way function
+**One-way function**  
 단방향 함수. 오직 한 방향으로만 작동하는 함수이다.  
 결정론적이기에 일정한 입력값에 대해 일정한 결과값을 갖는다.  
 ex) "test" = h_fn(x) => "awetawedgzderw"  

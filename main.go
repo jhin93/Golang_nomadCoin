@@ -11,10 +11,37 @@ type block struct {
 	prevHash string
 }
 
+type blockchain struct {
+	blocks []block
+}
+
+func (b *blockchain) getLastHash() string {
+	if len(b.blocks) > 0 {
+		return b.blocks[len(b.blocks)-1].hash
+	}
+	return ""
+}
+
+func (b *blockchain) addBlock(data string) {
+	newBlock := block{data, "", b.getLastHash()}
+	hash := sha256.Sum256([]byte(newBlock.data + newBlock.prevHash))
+	newBlock.hash = fmt.Sprintf("%x", hash)
+	b.blocks = append(b.blocks, newBlock)
+}
+
+func (b *blockchain) listBlocks() {
+	for _, blk := range b.blocks {
+		fmt.Println("\n", "")
+		fmt.Printf("Data: %s\n", blk.data)
+		fmt.Printf("Hash: %s\n", blk.hash)
+		fmt.Printf("Prev Hash: %s\n", blk.prevHash)
+	}
+}
+
 func main() {
-	genesisBlock := block{"Genesis Block", "", ""}
-	hash := sha256.Sum256([]byte(genesisBlock.data + genesisBlock.prevHash)) // 1. byte 값 가져오기(data + prevHash) + sha256으로 난수화
-	hexHash := fmt.Sprintf("%x", hash)                                       // 2. 16진수 string으로 변환(.Sprintf("%x"))
-	genesisBlock.hash = hexHash                                              // 3. hash에 담음
-	fmt.Println(genesisBlock)
+	chain := blockchain{}
+	chain.addBlock("Genesis Block")
+	chain.addBlock("Second Block")
+	chain.addBlock("Third Block")
+	chain.listBlocks()
 }

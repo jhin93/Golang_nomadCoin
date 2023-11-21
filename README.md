@@ -224,7 +224,7 @@ ex) "awetawedgzderw" = h_fn(x) => "test" ---> 이렇게 결과를 입력해도 �
 </br>
 
 ***append 메소드
-```
+```go
 slice := []int{1, 2, 3}  
 slice = append(slice, 4, 5)  
 // 이제 slice는 [1, 2, 3, 4, 5]입니다.  
@@ -235,3 +235,38 @@ combinedSlice := append(firstSlice, secondSlice...)
 // combinedSlice는 [1, 2, 3, 4, 5, 6]입니다.  
 ```
 
+</br>
+</br>
+</br>
+</br>
+
+**Singleton Pattern
+
+Application 내에서 언제든지 blockchain의 단 하나의 instance만을 공유하는 방법.  
+Sigleton의 의미는 특정 변수의 instance를 직접 공유하지 않고, 대신 해당 변수의 instance를 대신해서 드러내주는 function 생성. 직접 function을 생성하는 만큼 blockchain이 어떻게 드러날 지를 제어할 수 있다는 의미.  
+```go
+package blockchain
+
+type block struct {
+	data     string
+	hash     string
+	prevHash string
+}
+
+type blockchain struct {
+	blocks []block
+}
+
+var b *blockchain
+
+func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환
+	// 1. b 변수 초기화 여부 확인
+	if b == nil {
+		b = &blockchain{} // 2. blockchain 인스턴스 생성
+	}
+	return b // 3. b 반환
+}
+
+// 누군가 이 blockchain을 처음으로 요청하면 nil을 반환하는 일 없이 blockchain을 먼저 초기화 한 뒤에 반환함
+// 이미 실행된 blockchain을 누군가 초기화하려고 해도 이미 실행됐던 GetBlockchain 함수로 인해 이미 nil이 아닌 b가 반환된다
+```

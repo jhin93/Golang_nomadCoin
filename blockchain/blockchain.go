@@ -1,5 +1,7 @@
 package blockchain
 
+import "sync"
+
 type block struct {
 	data     string
 	hash     string
@@ -11,11 +13,14 @@ type blockchain struct {
 }
 
 var b *blockchain
+var once sync.Once // sync 패키지의 type 'Once'
 
 func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환
 	// 1. b 변수 초기화 여부 확인
 	if b == nil {
-		b = &blockchain{} // 2. blockchain 인스턴스 생성
+		once.Do(func() { // 내부의 로직을 오직 한번만 실행(.Do)
+			b = &blockchain{} // 2. blockchain 인스턴스 생성
+		})
 	}
 	return b // 3. b 반환
 }

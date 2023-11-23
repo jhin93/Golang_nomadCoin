@@ -1,5 +1,6 @@
 # Golang_nomadCoin
 
+# Go standard 패키지 https://pkg.go.dev/std
 
 **range 사용예제**
 ```go

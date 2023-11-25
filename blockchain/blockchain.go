@@ -35,7 +35,7 @@ func getLastHash() string { // 마지막 블록 해쉬 반환
 func createBlock(data string) *block { // block 타입의 pointer 반환
 	newBlock := block{data, "", getLastHash()}
 	newBlock.calculateHash()
-	return &newBlock
+	return &newBlock // 반환값이 메모리 연산자인 이유는 createBlock 함수가 사용될 blockchain구조체의 내부 요소 blocks가 포인터 변수 슬라이스이기 때문
 }
 
 func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환

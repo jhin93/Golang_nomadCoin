@@ -243,31 +243,28 @@ combinedSlice := append(firstSlice, secondSlice...)
 
 **Singleton Pattern
 
-Application 내에서 언제든지 blockchain의 단 하나의 instance만을 공유하는 방법.  
-Sigleton의 의미는 특정 변수의 instance를 직접 공유하지 않고, 대신 해당 변수의 instance를 대신해서 드러내주는 function 생성. 직접 function을 생성하는 만큼 blockchain이 어떻게 드러날 지를 제어할 수 있다는 의미.  
+
+싱글톤 패턴은 디자인 패턴 중 하나로, 특정 클래스의 인스턴스가 프로그램 전체에서 하나만 생성되도록 보장하는 패턴입니다. Go 언어에서의 싱글톤 패턴을 매우 간단하게 설명하면 다음과 같습니다:
+
+1. 클래스 정의: Go에서는 클래스 대신 struct를 사용합니다. 싱글톤이 될 struct를 정의합니다.
+2. 프라이빗 생성자: 다른 곳에서 이 struct의 인스턴스를 직접 생성하지 못하도록 생성자 함수를 프라이빗하게 만듭니다. Go에서는 생성자 대신 프라이빗한 초기화 함수를 사용할 수 있습니다.
+3. 전역 인스턴스: 이 struct의 유일한 인스턴스를 저장할 전역 변수를 선언합니다.
+4. 인스턴스 접근 함수: 이 전역 인스턴스에 접근할 수 있는 공개 함수를 제공합니다. 이 함수는 전역 인스턴스가 이미 생성되었는지 확인하고, 생성되지 않았다면 새로 생성하여 반환합니다.
 ```go
-package blockchain
-
-type block struct {
-	data     string
-	hash     string
-	prevHash string
+type MySingleton struct {
+    // 필요한 필드들
 }
 
-type blockchain struct {
-	blocks []block
+var instance *MySingleton
+
+func getInstance() *MySingleton {
+    if instance == nil {
+        instance = &MySingleton{
+            // 초기화 코드
+        }
+    }
+    return instance
 }
 
-var b *blockchain
-
-func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환
-	// 1. b 변수 초기화 여부 확인
-	if b == nil {
-		b = &blockchain{} // 2. blockchain 인스턴스 생성
-	}
-	return b // 3. b 반환
-}
-
-// 누군가 이 blockchain을 처음으로 요청하면 nil을 반환하는 일 없이 blockchain을 먼저 초기화 한 뒤에 반환함
-// 이미 실행된 blockchain을 누군가 초기화하려고 해도 이미 실행됐던 GetBlockchain 함수로 인해 이미 nil이 아닌 b가 반환된다
+// 여기서 getInstance 함수는 항상 동일한 MySingleton 인스턴스를 반환합니다. 이렇게 함으로써, 전체 프로그램에서 MySingleton의 단 하나의 인스턴스만 존재하게 되는 것입니다.
 ```

@@ -268,3 +268,38 @@ func getInstance() *MySingleton {
 
 // 여기서 getInstance 함수는 항상 동일한 MySingleton 인스턴스를 반환합니다. 이렇게 함으로써, 전체 프로그램에서 MySingleton의 단 하나의 인스턴스만 존재하게 되는 것입니다.
 ```
+
+</br>
+</br>
+</br>
+</br>
+
+**Writer, fmt.Fprint  
+Go 프로그래밍 언어에서 "Writer"는 데이터를 쓸 수 있는 엔티티를 나타내는 인터페이스입니다. Go에서 인터페이스는 타입이 구현해야 하는 메서드 시그니처의 모음입니다. Writer 인터페이스는 io 패키지에 정의되어 있으며 가장 널리 사용되는 인터페이스 중 하나입니다.
+</br>
+</br>
+간단히 말해, Writer 인터페이스는 데이터를 받아서 어딘가에 기록할 수 있는 모든 종류의 대상을 추상화합니다. 예를 들어, 파일, 메모리 버퍼, 네트워크 연결 등이 있을 수 있습니다. 여기서 fmt.Fprint 함수는 Writer 인터페이스를 만족하는 어떤 객체에도 데이터를 기록할 수 있습니다. 따라서 fmt.Fprint는 콘솔이 아닌, Writer 인터페이스를 구현하는 다양한 대상에 데이터를 출력할 수 있습니다.
+</br>
+</br>
+
+```go
+func home(rw http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(rw, "Hello from home!") // Fprint는 콘솔이 아닌 Writer에 출력하는 것. data를 format해서 Writer에 보내는 것
+}
+
+```
+http.ResponseWriter (rw): 이 인터페이스는 서버가 HTTP 클라이언트 (브라우저나 다른 HTTP 클라이언트)에 응답을 보내는 데 사용됩니다. ResponseWriter를 통해 HTTP 응답의 본문(body), 상태 코드(status code), 헤더(headers) 등을 설정할 수 있습니다.
+</br>
+</br>
+*http.Request (r): 이 포인터는 현재 요청에 대한 모든 정보를 포함하고 있습니다. 클라이언트로부터 받은 데이터, URL, 헤더, 메소드(GET, POST 등) 등의 요청 정보를 담고 있습니다.
+</br>
+</br>
+fmt.Fprint 함수는 첫 번째 인자로 Writer 인터페이스를 받고, 두 번째 인자부터는 출력하고자 하는 데이터를 받습니다. 이 경우 rw (즉, http.ResponseWriter)는 Writer 인터페이스를 구현하고 있기 때문에, fmt.Fprint를 사용하여 "Hello from home"이라는 문자열을 클라이언트에게 보낼 수 있습니다.
+</br>
+</br>
+home 함수의 동작 구조는 다음과 같습니다:
+
+1. 클라이언트(브라우저나 다른 HTTP 클라이언트)가 서버에 HTTP 요청을 보냅니다.
+2. 서버는 home 함수를 호출하면서 ResponseWriter와 *http.Request를 인자로 넘깁니다.
+3. home 함수는 fmt.Fprint를 사용해 rw (ResponseWriter)에 "Hello from home" 문자열을 기록합니다.
+4. 이 문자열은 HTTP 응답의 일부로 클라이언트에게 전송되어, 클라이언트는 이 문자열을 받아 볼 수 있습니다.

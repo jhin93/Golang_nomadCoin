@@ -2,16 +2,28 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
+
+	"github.com/jhin93/Golang_nomadCoin/blockchain"
 )
 
 const port string = ":4000"
 
+type homeData struct {
+	PageTitle string              // html 파일에 공유되어야 하기에 대문자
+	Blocks    []*blockchain.Block // 블록을 렌더링하기 위해 선언. Declare as uppercase for sharing
+}
+
 // 첫번째 인자는 ResponseWriter. 이는 유저에게 보내고 싶은 데이터를 적는 것.
 // 두번쨰 인자는 request pointer. request를 복사하려는 게 아니기에 포인터로 사용
 func home(rw http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(rw, "Hello from home!") // Fprint는 콘솔이 아닌 Writer에 출력하는 것. data를 format해서 Writer에 보내는 것
+	// 렌더링을 위해 html/template 메소드 사용. It return pointer and error(*template.Template, error).
+	// template 메소드의 에러를 대신 처리해주는 메소드 .Must. 에러가 없다면 template pointer 반환(t *template.Template) 메소드 기능은 cmd+클릭으로 확인 가능.
+	tmpl := template.Must(template.ParseFiles("templates/home.html"))
+	data := homeData{"Home", blockchain.GetBlockchain().AllBlocks()} // 모든 블록체인의 블록 렌더링
+	tmpl.Execute(rw, data)                                           // argument : 1. writer(wr io.Writer) 2. data(any)
 }
 
 func main() {

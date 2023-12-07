@@ -21,7 +21,7 @@ type homeData struct {
 func home(rw http.ResponseWriter, r *http.Request) {
 	// 렌더링을 위해 html/template 메소드 사용. It return pointer and error(*template.Template, error).
 	// template 메소드의 에러를 대신 처리해주는 메소드 .Must. 에러가 없다면 template pointer 반환(t *template.Template) 메소드 기능은 cmd+클릭으로 확인 가능.
-	tmpl := template.Must(template.ParseFiles("templates/home.html"))
+	tmpl := template.Must(template.ParseFiles("templates/home.gohtml"))
 	data := homeData{"Home", blockchain.GetBlockchain().AllBlocks()} // 모든 블록체인의 블록 렌더링
 	tmpl.Execute(rw, data)                                           // argument : 1. writer(wr io.Writer) 2. data(any)
 }

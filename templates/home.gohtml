@@ -7,5 +7,9 @@
 </head>
 <body>
     <h1>{{.PageTitle}}</h1>
+    <!-- Block Rendering. Range 'Blocks' from type 'homedata', 'Data' from type 'Block' -->
+    {{range .Blocks}}
+        {{.Data}}
+    {{end}}
 </body>
 </html>

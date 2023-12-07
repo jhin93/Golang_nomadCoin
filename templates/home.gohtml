@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css"> 
     <title>노마드 코인</title>
 </head>
 <body>
-    <h1>{{.PageTitle}}</h1>
+    <header>
+        <h1>{{.PageTitle}}</h1>
+    </header>
+    <main>
     <!-- Block Rendering. Range 'Blocks' from type 'homedata', 'Data' from type 'Block' -->
     {{range .Blocks}}
-        {{.Data}}
+        <section>
+            <ul>
+                <li>{{.Data}}</li>
+                <li>{{.Hash}}</li>
+                <li>{{.PrevHash}}</li>
+            </ul>
+        </section>
     {{end}}
+    </main>
 </body>
 </html>

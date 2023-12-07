@@ -303,3 +303,10 @@ home 함수의 동작 구조는 다음과 같습니다:
 2. 서버는 home 함수를 호출하면서 ResponseWriter와 *http.Request를 인자로 넘깁니다.
 3. home 함수는 fmt.Fprint를 사용해 rw (ResponseWriter)에 "Hello from home" 문자열을 기록합니다.
 4. 이 문자열은 HTTP 응답의 일부로 클라이언트에게 전송되어, 클라이언트는 이 문자열을 받아 볼 수 있습니다.
+
+
+
+
+
+
+

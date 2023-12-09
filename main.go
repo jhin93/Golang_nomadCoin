@@ -9,7 +9,12 @@ import (
 	"github.com/jhin93/Golang_nomadCoin/blockchain"
 )
 
-const port string = ":4000"
+const (
+	port        string = ":4000"
+	templateDir string = "templates/"
+)
+
+var templates *template.Template // One big variable which manage whole templates.
 
 type homeData struct {
 	PageTitle string              // html 파일에 공유되어야 하기에 대문자
@@ -19,14 +24,13 @@ type homeData struct {
 // 첫번째 인자는 ResponseWriter. 이는 유저에게 보내고 싶은 데이터를 적는 것.
 // 두번쨰 인자는 request pointer. request를 복사하려는 게 아니기에 포인터로 사용
 func home(rw http.ResponseWriter, r *http.Request) {
-	// 렌더링을 위해 html/template 메소드 사용. It return pointer and error(*template.Template, error).
-	// template 메소드의 에러를 대신 처리해주는 메소드 .Must. 에러가 없다면 template pointer 반환(t *template.Template) 메소드 기능은 cmd+클릭으로 확인 가능.
-	tmpl := template.Must(template.ParseFiles("templates/pages/home.gohtml"))
 	data := homeData{"Home", blockchain.GetBlockchain().AllBlocks()} // 모든 블록체인의 블록 렌더링
-	tmpl.Execute(rw, data)                                           // argument : 1. writer(wr io.Writer) 2. data(any)
+	templates.ExecuteTemplate(rw, "home", data)                      // 'templates'변수에 'ExecuteTemplate'메소드를 적용 'home'이라는 페이지를 data 변수를 적용해서 실행한다.
 }
 
 func main() {
+	templates = template.Must(template.ParseGlob(templateDir + "pages/*.gohtml"))     // pages에 있는  모든 파일을 load한 결과물을 route안에서 호출.
+	templates = template.Must(templates.ParseGlob(templateDir + "partials/*.gohtml")) // '/partial'에 있는 파일도 불러오기 위해 모든 파일이 담긴 'templates' 변수를 업데이트.
 	http.HandleFunc("/", home)
 	fmt.Printf("Listening on http://localhost%s\n", port)
 	// .Fatal은 os.Exit(1) 다음에 따라나오는 error를 Print()

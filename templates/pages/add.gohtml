@@ -1,12 +1,14 @@
 {{define "add"}}
 <!DOCTYPE html>
     <html lang="en">
-    {{template "head"}}
+    {{/* {{template "head" .PageTitle}} 처럼 변수 전달이 아닌 value를 직접 전달(template "head" "Add")할 수 있음 */}}
+    {{template "head" "Add"}}
     <body>
-        {{template "header"}}
+        {{template "header" "Add"}}
         <main>
-            <form>
-                <input type="text" placeholder="Data for your block" required />
+            <form method="POST">
+                <input type="text" placeholder="Data for your block" required name="blockData"/>
+                <button>Add Block</button>
             </form>
         </main>
     {{template "footer"}}

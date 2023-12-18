@@ -1,7 +1,7 @@
 {{define "header"}}
     <header>
         <nav>
-            <a href="/"><h1>노마드 코ㄴ</h1></a>
+            <a href="/"><h1>노마드 코인</h1></a>
             <ul>
                 <li>
                     <a href="/">Home</a>
@@ -11,6 +11,7 @@
                 </li>
             </ul>
         </nav>
-        <h1>{{.PageTitle}}</h1>
+        {{/* home.gohtml로부터 전달받은 PageTitle 변수를 {{.}} 으로 표현 */}}
+        <h1>{{.}}</h1> 
     </header>
 {{end}}

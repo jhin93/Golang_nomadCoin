@@ -1,8 +1,10 @@
 # Golang_nomadCoin
 
+```
 최종 업데이트 : 12/18
 현재까지 들은 최종 번호 : #5.4
 다음 들어야 하는 번호 : #5.5
+```
 
 # Go standard 패키지 https://pkg.go.dev/std
 

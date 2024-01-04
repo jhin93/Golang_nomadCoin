@@ -1,9 +1,9 @@
 # Golang_nomadCoin
 
 ```
-최종 업데이트 : 1/2  
-현재까지 들은 번호 : #5.6  
-다음 들어야 하는 번호 : #5.7  
+최종 업데이트 : 1/4  
+현재까지 들은 번호 : #6.0  
+다음 들어야 하는 번호 : #6.1  
 ```
 
 # Go standard 패키지 https://pkg.go.dev/std
@@ -311,8 +311,47 @@ home 함수의 동작 구조는 다음과 같습니다:
 4. 이 문자열은 HTTP 응답의 일부로 클라이언트에게 전송되어, 클라이언트는 이 문자열을 받아 볼 수 있습니다.
 
 
+</br>
+</br>
+</br>
+</br>
 
+**HTTP  
+```go
+func main() {
+    http.HandleFunc("/", homeHandler)
+    http.HandleFunc("/about", aboutHandler)
 
+    http.ListenAndServe(":8080", nil)
+}
 
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+    // 요청 메서드 (GET, POST, 등) 확인
+    fmt.Fprintf(w, "Request method: %s\n", r.Method)
 
+    // 요청 URL의 쿼리 파라미터 접근
+    name := r.URL.Query().Get("name")
+    if name != "" {
+        fmt.Fprintf(w, "Hello, %s!\n", name)
+    } else {
+        fmt.Fprintf(w, "Welcome to the home page!\n")
+    }
+}
 
+func aboutHandler(w http.ResponseWriter, r *http.Request) {
+    // 요청 헤더 정보 접근
+    userAgent := r.Header.Get("User-Agent")
+    fmt.Fprintf(w, "Your User-Agent is: %s\n", userAgent)
+}
+
+```
+이 예시에서 homeHandler 함수는 URL의 쿼리 파라미터를 통해 이름을 받아 인사말을 반환합니다. 예를 들어, 사용자가 / 경로에 ?name=John 쿼리 파라미터를 포함하여 요청하면, 서버는 "Hello, John!"이라고 응답합니다.  
+반면, aboutHandler 함수는 요청의 User-Agent 헤더를 읽어 클라이언트의 정보를 반환합니다. 이를 통해 클라이언트가 사용하는 브라우저나 운영 체제에 대한 정보를 얻을 수 있습니다.  
+이처럼 *http.Request 객체를 사용하면 요청과 관련된 상세한 정보에 접근하고, 이를 바탕으로 동적인 응답을 생성할 수 있습니다.  
+
+- *http.Request에 포인터(*)가 붙은 이유
+1. 메모리 효율성: http.Request 구조체는 요청 URL, 헤더, 바디, 쿠키 등 다양하고 상대적으로 큰 양의 데이터를 포함할 수 있습니다. 포인터를 사용함으로써, 이러한 큰 데이터 구조체의 복사본을 만들지 않고, 원본 구조체에 대한 참조만을 전달합니다. 이는 메모리 사용량을 줄이고 성능을 향상시킵니다.
+2. 변경 가능성: 함수 내에서 http.Request의 내용을 변경해야 할 경우, 포인터를 통해 원본 구조체에 직접 접근하고 수정할 수 있습니다. 값으로 전달할 경우, 수정 사항이 원본 구조체에 반영되지 않습니다.
+3. 표준 라이브러리 설계: Go의 표준 라이브러리, 특히 net/http 패키지는 HTTP 요청과 응답을 처리하기 위해 이러한 포인터 기반의 설계를 사용합니다. 이는 Go 커뮤니티에서 널리 받아들여진 관행이며, 일관된 API 사용을 가능하게 합니다.
+
+따라서, *http.Request에서 포인터를 사용하는 것은 메모리 관리 및 구조체의 변경 가능성을 고려한 설계 결정이며, Go 언어의 표준 라이브러리와 일관성을 유지하기 위한 것입니다.

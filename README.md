@@ -390,6 +390,7 @@ type URLDescription struct {
 	URL         string `json:"url"`
 	Method      string `json:"method"`
 	Description string `json:"description"`
+	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 생략해준다.
 }
 
 ```

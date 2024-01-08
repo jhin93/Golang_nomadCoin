@@ -13,6 +13,7 @@ type URLDescription struct {
 	URL         string `json:"url"` // struct field tag 작성방법. struct field를 소문자로 json으로 보여준다.
 	Method      string `json:"method"`
 	Description string `json:"description"`
+	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 생략해준다.
 }
 
 func documentation(rw http.ResponseWriter, r *http.Request) {
@@ -21,6 +22,12 @@ func documentation(rw http.ResponseWriter, r *http.Request) {
 			URL:         "/",
 			Method:      "GET",
 			Description: "See Documentation",
+		},
+		{
+			URL:         "/blocks",
+			Method:      "POST",
+			Description: "Add A Block",
+			Payload:     "data:string",
 		},
 	}
 	rw.Header().Add("Content-Type", "application/json") // text가 아닌 json으로 브라우저에 보내도록 Header에서 Content-type을 변경

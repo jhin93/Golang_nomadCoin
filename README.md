@@ -378,3 +378,19 @@ func documentation(rw http.ResponseWriter, r *http.Request) {
 }
 ```
 console이 아닌 writer에 작성하는 메소드.
+
+</br>
+</br>
+</br>
+</br>
+
+**struct field tag**
+```go
+type URLDescription struct {
+	URL         string `json:"url"`
+	Method      string `json:"method"`
+	Description string `json:"description"`
+}
+
+```
+struct field tag 작성방법. struct field를 소문자로 json으로 보여준다. 백틱(``) + 따옴표(")

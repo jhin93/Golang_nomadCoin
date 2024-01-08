@@ -230,7 +230,7 @@ ex) "awetawedgzderw" = h_fn(x) => "test" ---> 이렇게 결과를 입력해도 �
 </br>
 </br>
 
-***append 메소드
+***append 메소드***
 ```go
 slice := []int{1, 2, 3}  
 slice = append(slice, 4, 5)  
@@ -247,7 +247,7 @@ combinedSlice := append(firstSlice, secondSlice...)
 </br>
 </br>
 
-**Singleton Pattern
+**Singleton Pattern**
 
 
 싱글톤 패턴은 디자인 패턴 중 하나로, 특정 클래스의 인스턴스가 프로그램 전체에서 하나만 생성되도록 보장하는 패턴입니다. Go 언어에서의 싱글톤 패턴을 매우 간단하게 설명하면 다음과 같습니다:
@@ -280,7 +280,7 @@ func getInstance() *MySingleton {
 </br>
 </br>
 
-**Writer, fmt.Fprint  
+**Writer, fmt.Fprint**  
 Go 프로그래밍 언어에서 "Writer"는 데이터를 쓸 수 있는 엔티티를 나타내는 인터페이스입니다. Go에서 인터페이스는 타입이 구현해야 하는 메서드 시그니처의 모음입니다. Writer 인터페이스는 io 패키지에 정의되어 있으며 가장 널리 사용되는 인터페이스 중 하나입니다.
 </br>
 </br>
@@ -316,7 +316,7 @@ home 함수의 동작 구조는 다음과 같습니다:
 </br>
 </br>
 
-**HTTP  
+**HTTP**  
 ```go
 func main() {
     http.HandleFunc("/", homeHandler)
@@ -355,3 +355,26 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 3. 표준 라이브러리 설계: Go의 표준 라이브러리, 특히 net/http 패키지는 HTTP 요청과 응답을 처리하기 위해 이러한 포인터 기반의 설계를 사용합니다. 이는 Go 커뮤니티에서 널리 받아들여진 관행이며, 일관된 API 사용을 가능하게 합니다.
 
 따라서, *http.Request에서 포인터를 사용하는 것은 메모리 관리 및 구조체의 변경 가능성을 고려한 설계 결정이며, Go 언어의 표준 라이브러리와 일관성을 유지하기 위한 것입니다.
+
+</br>
+</br>
+</br>
+</br>
+
+***Fprintf**
+```
+func documentation(rw http.ResponseWriter, r *http.Request) {
+	data := []URLDescription{
+		{
+			URL:         "/",
+			Method:      "GET",
+			Description: "See Documentation",
+		},
+	}
+	// Marshal()은 Go의 데이터를 json으로 변환. json과 에러를 반환. JSON을 Go의 데이터로 바꿀 땐 Unmarshal
+	b, err := json.Marshal(data)
+	utils.HandleErr(err)
+	fmt.Fprintf(rw, "%s", b) // rw에 string화("%s")된 b를 작성한다.
+}
+```
+console이 아닌 writer에 작성하는 메소드.

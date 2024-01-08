@@ -10,16 +10,16 @@ import (
 const port string = ":4000"
 
 type URLDescription struct {
-	URL         string
-	method      string
-	Description string
+	URL         string `json:"url"` // struct field tag 작성방법. struct field를 소문자로 json으로 보여준다.
+	Method      string `json:"method"`
+	Description string `json:"description"`
 }
 
 func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []URLDescription{
 		{
 			URL:         "/",
-			method:      "GET",
+			Method:      "GET",
 			Description: "See Documentation",
 		},
 	}

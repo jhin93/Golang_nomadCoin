@@ -13,7 +13,7 @@ type URLDescription struct {
 	URL         string `json:"url"` // struct field tag 작성방법. struct field를 소문자로 json으로 보여준다.
 	Method      string `json:"method"`
 	Description string `json:"description"`
-	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 생략해준다.
+	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 해당 field 자체를 생략해준다.
 }
 
 func documentation(rw http.ResponseWriter, r *http.Request) {

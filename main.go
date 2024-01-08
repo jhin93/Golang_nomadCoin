@@ -5,15 +5,13 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-
-	"github.com/jhin93/Golang_nomadCoin/utils"
 )
 
 const port string = ":4000"
 
 type URLDescription struct {
 	URL         string
-	Method      string
+	method      string
 	Description string
 }
 
@@ -21,14 +19,12 @@ func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []URLDescription{
 		{
 			URL:         "/",
-			Method:      "GET",
+			method:      "GET",
 			Description: "See Documentation",
 		},
 	}
-	// Marshal()은 Go의 데이터를 json으로 변환. json과 에러를 반환. JSON을 Go의 데이터로 바꿀 땐 Unmarshal
-	b, err := json.Marshal(data)
-	utils.HandleErr(err)
-	fmt.Printf("%s", b) // byte slice -> string
+	rw.Header().Add("Content-Type", "application/json") // text가 아닌 json으로 브라우저에 보내도록 Header에서 Content-type을 변경
+	json.NewEncoder(rw).Encode(data)                    // .NewEncoder는 w에 작성할 encoder를 반환.
 }
 
 func main() {

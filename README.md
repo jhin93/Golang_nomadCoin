@@ -361,8 +361,8 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 </br>
 </br>
 
-***Fprintf**
-```
+**Fprintf**
+```go
 func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []URLDescription{
 		{

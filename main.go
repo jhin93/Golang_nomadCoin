@@ -9,8 +9,15 @@ import (
 
 const port string = ":4000"
 
+type URL string
+
+func (u URL) MarshalText() ([]byte, error) {
+	url := fmt.Sprintf("http://localhost%s%s", port, u)
+	return []byte(url), nil
+}
+
 type URLDescription struct {
-	URL         string `json:"url"` // struct field tag 작성방법. struct field를 소문자로 json으로 보여준다.
+	URL         URL    `json:"url"` // struct field tag 작성방법. struct field를 소문자로 json으로 보여준다.
 	Method      string `json:"method"`
 	Description string `json:"description"`
 	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 해당 field 자체를 생략해준다.
@@ -19,12 +26,12 @@ type URLDescription struct {
 func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []URLDescription{
 		{
-			URL:         "/",
+			URL:         URL("/"),
 			Method:      "GET",
 			Description: "See Documentation",
 		},
 		{
-			URL:         "/blocks",
+			URL:         URL("/blocks"),
 			Method:      "POST",
 			Description: "Add A Block",
 			Payload:     "data:string",

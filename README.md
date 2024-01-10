@@ -384,6 +384,27 @@ console이 아닌 writer에 작성하는 메소드.
 </br>
 </br>
 
+**Sprintf**
+fmt.Sprintf의 결과는 문자열이며, 이 문자열은 변수에 저장되거나 다른 함수에 전달될 수 있습니다. 이 함수는 실제로 값을 출력하지 않으며, 단지 포맷된 문자열을 반환합니다.
+```go
+name := "홍길동"
+age := 30
+
+formattedString := fmt.Sprintf("%s는 %d살입니다.", name, age)
+// 결과: "홍길동는 30살입니다."
+```
+*서식 지정자의 예시
+%v: 값을 기본 형식으로 출력
+%d: 정수를 10진수 형식으로 출력
+%f: 부동소수점 숫자를 출력
+%s: 문자열 출력
+%t: 불린 값(true 또는 false) 출력
+
+</br>
+</br>
+</br>
+</br>
+
 **struct field tag**
 ```go
 type URLDescription struct {
@@ -395,3 +416,64 @@ type URLDescription struct {
 
 ```
 struct field tag 작성방법. struct field를 소문자로 json으로 보여준다. 백틱(``) + 따옴표(")
+
+</br>
+</br>
+</br>
+</br>
+
+**Interface**
+
+Go 언어에서 interface는 특정 메서드 집합으로 정의된 타입입니다. 인터페이스는 구체적인 구현을 지정하지 않고, 특정 동작을 하는 메서드들의 시그니처(메서드 이름, 매개변수, 반환 타입)만을 정의합니다. 어떤 타입이 인터페이스에 정의된 모든 메서드를 구현하면, 그 타입은 해당 인터페이스를 구현한다고 간주합니다.
+
+인터페이스의 주요 특징은 다음과 같습니다:
+
+- 타입 추상화: 인터페이스는 구체적인 타입의 내부 구현을 숨기고, 해당 타입이 어떤 동작을 할 수 있는지만을 표현합니다.
+- 다형성: 다양한 타입이 동일한 인터페이스를 구현할 수 있으며, 인터페이스 타입의 변수는 그 인터페이스를 구현하는 어떤 타입의 값이라도 저장할 수 있습니다. 이는 다양한 타입을 동일한 방식으로 처리할 수 있게 해줍니다.
+- 계약의 정의: 인터페이스는 사용되는 메서드에 대한 계약을 정의합니다. 어떤 타입이 인터페이스를 구현하기 위해서는 인터페이스에 정의된 모든 메서드를 구현해야 합니다.
+
+
+**** interface를 직접 구현하는 경우 ****
+```go
+type Speaker interface {
+    Speak() string
+}
+// Speaker라는 인터페이스는 Speak라는 메서드를 가지고 있습니다. 
+// 어떤 타입이든 Speak() string 메서드를 구현하면 Speaker 인터페이스를 구현한 것으로 간주됩니다.
+
+type Dog struct {}
+
+func (d Dog) Speak() string {
+    return "멍멍"
+}
+
+type Cat struct {}
+
+func (c Cat) Speak() string {
+    return "야옹"
+}
+
+func main() {
+    var speaker Speaker
+    speaker = Dog{}
+    fmt.Println(speaker.Speak()) // 출력: 멍멍
+
+    speaker = Cat{}
+    fmt.Println(speaker.Speak()) // 출력: 야옹
+}
+
+```
+위 예시에서 Dog와 Cat 타입은 모두 Speaker 인터페이스를 구현합니다. main 함수에서는 Speaker 타입의 변수 speaker를 사용하여 Dog와 Cat 객체의 Speak 메서드를 호출합니다. 이를 통해 다양한 타입을 동일한 인터페이스로 추상화하고 다형성을 실현할 수 있습니다.
+
+**** interface를 직접 구현하지 않는 경우 ****
+```go
+type URL string 
+
+func (u URL) MarshalText() ([]byte, error) {
+	url := fmt.Sprintf("http://localhost%s%s", port, u)
+	return []byte(url), nil
+}
+```
+위 예시의 'URL'이라는 type은 MarshalText()라는 golang의 내제된 interface를 사용함. 마치 .push()와 같다.
+내재 interface 예시 - TextMarshaler(https://pkg.go.dev/encoding#TextMarshaler)
+

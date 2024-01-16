@@ -25,6 +25,10 @@ type URLDescription struct {
 	Payload     string `json:"payload,omitempty"` // omitempty는 해당 field의 value가 비어있을 경우, 해당 field 자체를 생략해준다.
 }
 
+type AddBlockBody struct {
+	Message string // request로 들어오는 데이터의 key name("message")과 동일해야 한다.
+}
+
 func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []URLDescription{
 		{
@@ -47,9 +51,11 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
 		rw.Header().Add("Content-Type", "application/json")
-		json.NewEncoder(rw).Encode(blockchain.GetBlockchain().AllBlocks())
+		json.NewEncoder(rw).Encode(blockchain.GetBlockchain().AllBlocks()) // 뭔가를 http client에 write할때 Encoder를 만들어서 encode 함.
 	case "POST":
-
+		var addBlockBody AddBlockBody
+		json.NewDecoder(r.Body).Decode(&addBlockBody) // Decoder(.NewDecoder)를 만들어서 request(r)의 body(Body)로부터 읽어온다(.Decode). 그리고 그 결과를 실제(&) addBlockBody에 담는다(&addblockBody)
+		fmt.Println(addBlockBody)
 	}
 }
 

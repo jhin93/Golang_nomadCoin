@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/jhin93/Golang_nomadCoin/blockchain"
+	"github.com/jhin93/Golang_nomadCoin/utils"
 )
 
 const port string = ":4000"
@@ -55,7 +56,9 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 	case "POST":
 		var addBlockBody AddBlockBody
 		json.NewDecoder(r.Body).Decode(&addBlockBody) // Decoder(.NewDecoder)를 만들어서 request(r)의 body(Body)로부터 읽어온다(.Decode). 그리고 그 결과를 실제(&) addBlockBody에 담는다(&addblockBody)
-		fmt.Println(addBlockBody)
+		utils.HandleErr(json.NewDecoder(r.Body).Decode(&addBlockBody))
+		blockchain.GetBlockchain().AddBlock(addBlockBody.Message)
+		rw.WriteHeader(http.StatusCreated) // 에러처리를 위해 header에 http status 작성. StatusCreated는 201을 의미
 	}
 }
 

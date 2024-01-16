@@ -43,6 +43,11 @@ func documentation(rw http.ResponseWriter, r *http.Request) {
 			Description: "Add A Block",
 			Payload:     "data:string",
 		},
+		{
+			URL:         URL("/blocks/{id}"),
+			Method:      "GET",
+			Description: "See A Block",
+		},
 	}
 	rw.Header().Add("Content-Type", "application/json") // text가 아닌 json으로 브라우저에 보내도록 Header에서 Content-type을 변경
 	json.NewEncoder(rw).Encode(data)                    // .NewEncoder는 w에 작성할 encoder를 반환.

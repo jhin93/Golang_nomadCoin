@@ -483,7 +483,7 @@ func (u URL) MarshalText() ([]byte, error) {
 </br>
 
 **JSON Encode, Decode**
-```
+```go
 func blocks(rw http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":

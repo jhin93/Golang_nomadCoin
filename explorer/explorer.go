@@ -10,7 +10,6 @@ import (
 )
 
 const (
-	port        string = ":4000"
 	templateDir string = "explorer/templates/"
 )
 
@@ -40,13 +39,13 @@ func add(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Start() {
+func Start(port int) {
 	templates = template.Must(template.ParseGlob(templateDir + "pages/*.gohtml"))     // pages에 있는  모든 파일을 load한 결과물을 route안에서 호출.
 	templates = template.Must(templates.ParseGlob(templateDir + "partials/*.gohtml")) // '/partial'에 있는 파일도 불러오기 위해 모든 파일이 담긴 'templates' 변수를 업데이트.
 	http.HandleFunc("/", home)
 	http.HandleFunc("/add", add)
-	fmt.Printf("Listening on http://localhost%s\n", port)
+	fmt.Printf("Listening on http://localhost:%d\n", port)
 	// .Fatal은 os.Exit(1) 다음에 따라나오는 error를 Print()
 	// os.Exit(1)은 프로그램이 error code 1으로 종료되는 것
-	log.Fatal(http.ListenAndServe(port, nil)) // ListenAndServe는 error를 반환하는 함수. 만약 에러가 있다면 log.Fatal발동. 아니라면 http.ListenAndServe 유지
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), nil)) // ListenAndServe는 error를 반환하는 함수. 만약 에러가 있다면 log.Fatal발동. 아니라면 http.ListenAndServe 유지
 }

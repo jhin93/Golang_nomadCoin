@@ -49,10 +49,24 @@ func main() {
 
 **Sprintf** 
 ```go
+package main
+
+import (
+    "fmt"
+)
+
 func main() {
 	x := 412412
 	xAsBinary := fmt.Sprintf("%b\n", x) // binary로 format 된 x의 string
 	fmt.Println(x, xAsBinary) // 412412 1100100101011111100
+	
+	name := "John"
+    age := 30
+
+    // Using fmt.Sprintf to create a formatted string
+    formattedString := fmt.Sprintf("My name is %s and I am %d years old.", name, age)
+
+    fmt.Println(formattedString)
 }
 ```
 </br>

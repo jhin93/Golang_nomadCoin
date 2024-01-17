@@ -67,9 +67,10 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 }
 
 func Start(aPort int) {
+	handler := http.NewServeMux()
 	port = fmt.Sprintf(":%d", aPort) // %d는 integer
-	http.HandleFunc("/", documentation)
-	http.HandleFunc("/blocks", blocks)
+	handler.HandleFunc("/", documentation)
+	handler.HandleFunc("/blocks", blocks)
 	fmt.Printf("Listening on http://localhost%s\n", port)
-	log.Fatal(http.ListenAndServe(port, nil))
+	log.Fatal(http.ListenAndServe(port, handler)) // 서버에게 기본 ServeMux(nil)이 아닌 커스텀 ServeMux(handler)사용한다고 말해줌.
 }

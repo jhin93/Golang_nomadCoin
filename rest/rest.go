@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/gorilla/mux"
 	"github.com/jhin93/Golang_nomadCoin/blockchain"
 	"github.com/jhin93/Golang_nomadCoin/utils"
 )
@@ -66,11 +67,18 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func block(rw http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r) // mux.Vars()가 r에서 변수를 추출해줌
+	// fmt.Println(vars) 결과 : map[id:1]
+	id := vars["id"]
+}
+
 func Start(aPort int) {
-	handler := http.NewServeMux()
+	router := mux.NewRouter()        // gorilla mux 사용(mux.NewRouter())
 	port = fmt.Sprintf(":%d", aPort) // %d는 integer
-	handler.HandleFunc("/", documentation)
-	handler.HandleFunc("/blocks", blocks)
+	router.HandleFunc("/", documentation).Methods("GET")
+	router.HandleFunc("/blocks", blocks).Methods("GET", "POST")
+	router.HandleFunc("/blocks/{id:[0-9]+}", block).Methods("GET") // 변수({id})에 패턴 추가. mux가 확인. .Methods("GET") <- mux가 다른 method로부터 보호해줌. mux를 사용하지 않으면 위 switch문에서 .StatusMethodNotAllowed 같은 처리를 해주어야 함.
 	fmt.Printf("Listening on http://localhost%s\n", port)
-	log.Fatal(http.ListenAndServe(port, handler)) // 서버에게 기본 ServeMux(nil)이 아닌 커스텀 ServeMux(handler)사용한다고 말해줌.
+	log.Fatal(http.ListenAndServe(port, router)) // 서버에게 기본 ServeMux(nil)이 아닌 커스텀 ServeMux(handler)사용한다고 말해줌.
 }

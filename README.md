@@ -520,9 +520,13 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 **Gorilla**
 링크 : https://gorilla.github.io/
 
+사용을 위해선 'npm install 라이브러리' 처럼 라이브러리 설치를 해주어야 한다.
+ex) 터미널에서 'go get -u github.com/gorilla/mux' 실행
+
 Gorilla Toolkit은 Go 언어로 웹 애플리케이션을 개발하는 데 도움을 주는 모음집입니다. 이 툴킷은 여러 패키지로 구성되어 있으며 다양한 웹 개발 작업을 간편하게 수행할 수 있도록 도와줍니다. 아래는 Gorilla Toolkit의 몇 가지 중요한 패키지와 기능에 대한 간략한 설명입니다:
 
 1. gorilla/mux: 이 패키지는 HTTP 요청 라우팅 및 URL 패턴 매칭을 위한 강력한 라우터입니다. 웹 애플리케이션의 다양한 엔드포인트를 정의하고 관리하는 데 사용됩니다.
+ex) 변수를 받는 url 작성 - handler.HandleFunc("/blocks/{id}", blocks)
 
 2. gorilla/sessions: 세션 관리를 위한 패키지로, 사용자 인증 및 상태 관리와 같은 기능을 구현할 때 유용합니다.
 

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gorilla/mux"
 	"github.com/jhin93/Golang_nomadCoin/blockchain"
@@ -75,8 +76,10 @@ func blocks(rw http.ResponseWriter, r *http.Request) {
 func block(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r) // mux.Vars()가 r에서 변수를 추출해줌
 	// fmt.Println(vars) 결과 : map[id:1]
-	id := vars["height"]
-	fmt.Println(id)
+	id, err := strconv.Atoi(vars["height"]) // strconv 패키지의 Atoi 메소드는 string을 interger로 변환
+	utils.HandleErr(err)
+	block := blockchain.GetBlockchain().GetBlock(id) // id는 string이고, GetBlock()의 결과는 int이므로 타입 통일이 필요
+	json.NewEncoder(rw).Encode(block)
 }
 
 func Start(aPort int) {

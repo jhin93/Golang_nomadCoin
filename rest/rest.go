@@ -71,6 +71,7 @@ func block(rw http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r) // mux.Vars()가 r에서 변수를 추출해줌
 	// fmt.Println(vars) 결과 : map[id:1]
 	id := vars["id"]
+	fmt.Println(id)
 }
 
 func Start(aPort int) {

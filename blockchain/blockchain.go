@@ -57,3 +57,7 @@ func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain
 func (b *blockchain) AllBlocks() []*Block {
 	return GetBlockchain().blocks
 }
+
+func (b *blockchain) GetBlock(height int) *Block { // GetBlock 메서드는 blockchain 데이터 타입의 인스턴스에서만 호출될 수 있음(Method Receiver가 'blockchain' 타입이어야 한다는 말과 같은 의미)
+	return b.blocks[height-1] // block index가 0부터 시작해서 1을 빼주어야 함
+}

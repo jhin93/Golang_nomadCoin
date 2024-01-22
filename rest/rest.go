@@ -32,6 +32,10 @@ type addBlockBody struct {
 	Message string // request로 들어오는 데이터의 key name("message")과 동일해야 한다.
 }
 
+type errorResponse struct {
+	ErrorMessage string `json:"errorMessage"`
+}
+
 func documentation(rw http.ResponseWriter, r *http.Request) {
 	data := []urlDescription{
 		{
@@ -78,8 +82,13 @@ func block(rw http.ResponseWriter, r *http.Request) {
 	// fmt.Println(vars) 결과 : map[id:1]
 	id, err := strconv.Atoi(vars["height"]) // strconv 패키지의 Atoi 메소드는 string을 interger로 변환
 	utils.HandleErr(err)
-	block := blockchain.GetBlockchain().GetBlock(id) // id는 string이고, GetBlock()의 결과는 int이므로 타입 통일이 필요
-	json.NewEncoder(rw).Encode(block)
+	block, err := blockchain.GetBlockchain().GetBlock(id) // id는 string이고, GetBlock()의 결과는 int이므로 타입 통일이 필요
+	encoder := json.NewEncoder(rw)
+	if err == blockchain.ErrNotFound {
+		encoder.Encode(errorResponse{fmt.Sprint(err)}) // Sprint는 그냥 string으로 바꿔줌.
+	} else {
+		encoder.Encode(block)
+	}
 }
 
 func Start(aPort int) {

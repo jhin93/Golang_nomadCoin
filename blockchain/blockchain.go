@@ -2,6 +2,7 @@ package blockchain
 
 import (
 	"crypto/sha256"
+	"errors"
 	"fmt"
 	"sync"
 )
@@ -58,6 +59,11 @@ func (b *blockchain) AllBlocks() []*Block {
 	return GetBlockchain().blocks
 }
 
-func (b *blockchain) GetBlock(height int) *Block { // GetBlock 메서드는 blockchain 데이터 타입의 인스턴스에서만 호출될 수 있음(Method Receiver가 'blockchain' 타입이어야 한다는 말과 같은 의미)
-	return b.blocks[height-1] // block index가 0부터 시작해서 1을 빼주어야 함
+var ErrNotFound = errors.New("block not found")
+
+func (b *blockchain) GetBlock(height int) (*Block, error) { // GetBlock 메서드는 blockchain 데이터 타입의 인스턴스에서만 호출될 수 있음(Method Receiver가 'blockchain' 타입이어야 한다는 말과 같은 의미)
+	if height > len(b.blocks) {
+		return nil, ErrNotFound // blockchain의 길이보다 조회된 height가 높으면 블록체인은 nil, 에러는 ErrorNotFound 반환.
+	}
+	return b.blocks[height-1], nil // block index가 0부터 시작해서 1을 빼주어야 함
 }

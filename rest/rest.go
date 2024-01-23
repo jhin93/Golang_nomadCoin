@@ -92,7 +92,8 @@ func block(rw http.ResponseWriter, r *http.Request) {
 }
 
 func jsonContentTypeMiddleware(next http.Handler) http.Handler { // middleware. middleware는 마지막 목적지 전에 호출됨.
-	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) { // HandlerFunc는 타입, http.Handler는 interface. 근데 왜 리턴타입이 매칭이 안되는데 에러가 안날까?
+		// http.HandlerFunc는 'adapter'라고 불리는데 이는 인자로 들어간 함수가 조건에 부합하면 필요한 함수를 구현해준다. 그래서 위 'type url' 사례처럼 직접 url 혹은 type을 만들지 않아도 adapter가 대신 만들어줌. 이를 adapter 패턴이라 한다.
 		rw.Header().Add("Content-Type", "application/json")
 		next.ServeHTTP(rw, r)
 	})

@@ -91,9 +91,17 @@ func block(rw http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func jsonContentTypeMiddleware(next http.Handler) http.Handler { // middleware. middleware는 마지막 목적지 전에 호출됨.
+	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
+		rw.Header().Add("Content-Type", "application/json")
+		next.ServeHTTP(rw, r)
+	})
+}
+
 func Start(aPort int) {
-	router := mux.NewRouter()        // gorilla mux 사용(mux.NewRouter())
-	port = fmt.Sprintf(":%d", aPort) // %d는 integer
+	port = fmt.Sprintf(":%d", aPort)      // %d는 integer
+	router := mux.NewRouter()             // gorilla mux 사용(mux.NewRouter())
+	router.Use(jsonContentTypeMiddleware) // middleware가 먼저 호출 되고 next handler가 호출됨(next.ServeHTTP(rw, r)). 그건 아래 셋(router.HandleFunc()) 혹은 다른 middleware 중 하나가 될 것.
 	router.HandleFunc("/", documentation).Methods("GET")
 	router.HandleFunc("/blocks", blocks).Methods("GET", "POST")
 	router.HandleFunc("/blocks/{height:[0-9]+}", block).Methods("GET") // 변수({id})에 패턴 추가. mux가 확인. .Methods("GET") <- mux가 다른 method로부터 보호해줌. mux를 사용하지 않으면 위 switch문에서 .StatusMethodNotAllowed 같은 처리를 해주어야 함.

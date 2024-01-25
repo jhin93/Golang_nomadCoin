@@ -1,8 +1,8 @@
 # Golang_nomadCoin
 
 ``` 
-현재까지 들은 번호 : #7.0  
-다음 들어야 하는 번호 : #7.1  
+현재까지 들은 번호 : #7.1  
+다음 들어야 하는 번호 : #7.2  
 ```
 
 # Go standard 패키지 https://pkg.go.dev/std

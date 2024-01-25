@@ -1,9 +1,15 @@
 package main
 
 import (
-	"github.com/jhin93/Golang_nomadCoin/rest"
+	"fmt"
+	"os"
 )
 
 func main() {
-	rest.Start(4000)
+	if len(os.Args) < 2 { // os.Args는 'go run main.go' 뒤에 붙은 argument를 의미한다. Ex) go run main.go rest, go run main.go explorer
+		fmt.Printf("Welcome to 노마드 코인\n\n")
+		fmt.Printf("Please use the following commands:\n\n")
+		fmt.Printf("explorer:	Start the HTML Explorer\n\n")
+		fmt.Printf("rest:		Start the REST API (recommended)\n\n")
+	}
 }

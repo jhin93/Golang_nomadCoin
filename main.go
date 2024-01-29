@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 )
@@ -20,24 +19,4 @@ func main() {
 		// os.Args[0] 는 프로그램 이름이다. ex) [/var/folders/__/0g968kx52q16jwbpr6p825rc0000gn/T/go-build121872943/b001/exe/main
 		usage()
 	}
-
-	rest := flag.NewFlagSet("rest", flag.ExitOnError)                 // flag 모음인 flagSet을 작성. "rest" 메소드에 해당하는 set.
-	portFlag := rest.Int("port", 4000, "Sets the port of the server") // port flag 추가. flag 값의 타입이 Int(Int()). 이름 'port', default값 4000, 설명(Sets ~ )
-
-	switch os.Args[1] {
-	case "explorer":
-		fmt.Println("Start Explorer")
-	case "rest":
-		rest.Parse(os.Args[2:]) // [2:] 니까 세번째 요소 이후의 것들만 Parse()
-	default:
-		usage()
-	}
-
-	if rest.Parsed() { // rest.Parse()가 호출됐을때
-		fmt.Println(portFlag)
-		fmt.Println("Start server")
-	}
 }
-
-// 성공예시 - go run main.go rest -port=9000
-// 실패예시 - go run main.go rest -port=hello

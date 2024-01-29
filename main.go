@@ -33,7 +33,11 @@ func main() {
 		usage()
 	}
 
-	fmt.Println(*portFlag) // 'go run main.go rest -port=9000' 입력시 결과 : 9000
-	// 성공예시 - go run main.go rest -port=9000
-	// 실패예시 - go run main.go rest -port=hello
+	if rest.Parsed() { // rest.Parse()가 호출됐을때
+		fmt.Println(portFlag)
+		fmt.Println("Start server")
+	}
 }
+
+// 성공예시 - go run main.go rest -port=9000
+// 실패예시 - go run main.go rest -port=hello

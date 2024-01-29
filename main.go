@@ -16,16 +16,13 @@ func usage() {
 }
 
 func main() {
-	fmt.Println(os.Args)
 	if len(os.Args) < 2 { // os.Args는 'go run main.go' 뒤에 붙은 argument를 의미한다. Ex) go run main.go rest, go run main.go explorer
 		// os.Args[0] 는 프로그램 이름이다. ex) [/var/folders/__/0g968kx52q16jwbpr6p825rc0000gn/T/go-build121872943/b001/exe/main
 		usage()
 	}
 
-	rest := flag.NewFlagSet("rest", flag.ExitOnError)                                // flag 모음인 flagSet을 작성. "rest" 메소드에 해당하는 set.
-	portFlag := rest.Int("port", 4000, "Sets the port of the server (default 4000)") // port flag 추가. flag 값의 타입이 Int(Int()). 이름 'port', default값 4000, 설명(Sets ~ )
-
-	fmt.Println(os.Args[2:]) // [2:] 는 [2]부터 끝까지 를 의미한다. [2:5]는 [2]부터 [5]까지를 의미
+	rest := flag.NewFlagSet("rest", flag.ExitOnError)                 // flag 모음인 flagSet을 작성. "rest" 메소드에 해당하는 set.
+	portFlag := rest.Int("port", 4000, "Sets the port of the server") // port flag 추가. flag 값의 타입이 Int(Int()). 이름 'port', default값 4000, 설명(Sets ~ )
 
 	switch os.Args[1] {
 	case "explorer":
@@ -36,5 +33,7 @@ func main() {
 		usage()
 	}
 
-	fmt.Println(*portFlag)
+	fmt.Println(*portFlag) // 'go run main.go rest -port=9000' 입력시 결과 : 9000
+	// 성공예시 - go run main.go rest -port=9000
+	// 실패예시 - go run main.go rest -port=hello
 }

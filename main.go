@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 )
@@ -15,8 +16,22 @@ func usage() {
 }
 
 func main() {
-	if len(os.Args) < 2 { // os.Args는 'go run main.go' 뒤에 붙은 argument를 의미한다. Ex) go run main.go rest, go run main.go explorer
-		// os.Args[0] 는 프로그램 이름이다. ex) [/var/folders/__/0g968kx52q16jwbpr6p825rc0000gn/T/go-build121872943/b001/exe/main
-		usage()
-	}
+	port := flag.Int("port", 4000, "Set port of the server")
+	mode := flag.String("mode", "rest", "Choose between 'html' and 'rest") // default value가 "rest"
+	flag.Parse()
+
+	fmt.Println(*port, *mode) // flag.Int 및 flag.String 함수는 각각 int와 string 타입의 포인터를 반환. 그래서 *port, *mode로 반환.
+	// go run main.go
+	// 결과 : 4000 rest
+	// go run main.go -mode html -port 5000
+	// 결과 : 5000 html
+	// go run main.go -mode 4343 -port sdsd
+	// 결과 :
+	// invalid value "sdsd" for flag -port: parse error
+	// Usage of /var/folders/__/0g968kx52q16jwbpr6p825rc0000gn/T/go-build919758010/b001/exe/main:
+	//   -mode string
+	// 		Choose between 'html' and 'rest (default "rest")
+	//   -port int
+	// 		Set port of the server (default 4000)
+	// exit status 2
 }

@@ -554,7 +554,19 @@ func jsonContentTypeMiddleware(next http.Handler) http.Handler { // middleware. 
 </br>
 </br>
 </br>
-****숫자:숫자****
+
+***숫자:숫자***
 ```go
 fmt.Println(os.Args[2:]) // [2:] 는 [2]부터 끝까지 를 의미한다. [2:5]는 [2]부터 [5]까지를 의미
 ```
+
+
+</br>
+</br>
+</br>
+</br>
+
+***bolt***
+
+https://pkg.go.dev/github.com/boltdb/bolt#section-readme
+GO의 key/value DB 라이브러리.

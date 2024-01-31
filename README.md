@@ -568,5 +568,6 @@ fmt.Println(os.Args[2:]) // [2:] 는 [2]부터 끝까지 를 의미한다. [2:5]
 
 ***bolt***
 
+https://github.com/boltdb/bolt
 https://pkg.go.dev/github.com/boltdb/bolt#section-readme
 GO의 key/value DB 라이브러리.

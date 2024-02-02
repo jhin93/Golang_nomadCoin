@@ -5,6 +5,8 @@
 다음 들어야 하는 번호 : #8.2  
 ```
 
+
+
 # Go standard 패키지 https://pkg.go.dev/std
 
 **range 사용예제**

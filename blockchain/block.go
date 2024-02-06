@@ -12,8 +12,8 @@ type Block struct {
 	Height   int    `json:"height"`
 }
 
-func createBlock(data string, prevHash string, height int) {
-	block := Block{
+func createBlock(data string, prevHash string, height int) *Block {
+	block := &Block{
 		Data:     data,
 		Hash:     "",
 		PrevHash: prevHash,
@@ -21,4 +21,5 @@ func createBlock(data string, prevHash string, height int) {
 	}
 	payload := block.Data + block.PrevHash + fmt.Sprint(block.Height)
 	block.Hash = fmt.Sprintf("%x", sha256.Sum256([]byte(payload)))
+	return block
 }

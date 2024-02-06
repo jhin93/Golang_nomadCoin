@@ -1,9 +1,6 @@
 package blockchain
 
 import (
-	"crypto/sha256"
-	"errors"
-	"fmt"
 	"sync"
 )
 
@@ -15,36 +12,16 @@ type Block struct {
 }
 
 type blockchain struct {
-	blocks []*Block // blocks는 pointer의 slice
 }
 
 var b *blockchain
 var once sync.Once // sync 패키지의 type 'Once'
 
-func (b *Block) calculateHash() {
-	hash := sha256.Sum256([]byte(b.Data + b.PrevHash))
-	b.Hash = fmt.Sprintf("%x", hash) // 16진수
-}
-
-func getLastHash() string { // 마지막 블록 해쉬 반환
-	totalBlocks := len(GetBlockchain().blocks)
-	if totalBlocks == 0 {
-		return ""
-	}
-	return GetBlockchain().blocks[totalBlocks-1].Hash
-}
-
-func createBlock(data string) *Block { // block 타입의 pointer 반환
-	newBlock := Block{data, "", getLastHash(), len(GetBlockchain().blocks) + 1}
-	newBlock.calculateHash()
-	return &newBlock // 반환값이 메모리 연산자인 이유는 createBlock 함수가 사용될 blockchain구조체의 내부 요소 blocks가 포인터 변수 슬라이스이기 때문
-}
-
 func (b *blockchain) AddBlock(data string) {
-	b.blocks = append(b.blocks, createBlock(data))
+
 }
 
-func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환
+func Blockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환
 	// 1. b 변수 초기화 여부 확인
 	if b == nil {
 		once.Do(func() { // 내부의 로직을 오직 한번만 실행(.Do)
@@ -53,17 +30,4 @@ func GetBlockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain
 		})
 	}
 	return b // 3. b 반환
-}
-
-func (b *blockchain) AllBlocks() []*Block {
-	return GetBlockchain().blocks
-}
-
-var ErrNotFound = errors.New("block not found")
-
-func (b *blockchain) GetBlock(height int) (*Block, error) { // GetBlock 메서드는 blockchain 데이터 타입의 인스턴스에서만 호출될 수 있음(Method Receiver가 'blockchain' 타입이어야 한다는 말과 같은 의미)
-	if height > len(b.blocks) {
-		return nil, ErrNotFound // blockchain의 길이보다 조회된 height가 높으면 블록체인은 nil, 에러는 ErrorNotFound 반환.
-	}
-	return b.blocks[height-1], nil // block index가 0부터 시작해서 1을 빼주어야 함
 }

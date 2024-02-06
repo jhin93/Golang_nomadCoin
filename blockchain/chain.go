@@ -20,7 +20,7 @@ var b *blockchain
 var once sync.Once // sync 패키지의 type 'Once'
 
 func (b *blockchain) AddBlock(data string) {
-	block := Block{data, "", b.NewestHash, b.Height + 1}
+	createBlock(data, b.NewestHash, b.Height)
 }
 
 func Blockchain() *blockchain { // 변수 b와 동일한 타입인 blockchain의 pointer 반환

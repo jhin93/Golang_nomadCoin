@@ -20,5 +20,5 @@ func createBlock(data string, prevHash string, height int) {
 		Height:   height,
 	}
 	payload := block.Data + block.PrevHash + fmt.Sprint(block.Height)
-	block.Hash = fmt.Sprintf("%s", sha256.Sum256([]byte(payload)))
+	block.Hash = fmt.Sprintf("%x", sha256.Sum256([]byte(payload)))
 }
